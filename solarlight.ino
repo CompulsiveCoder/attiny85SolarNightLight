@@ -1,6 +1,6 @@
 //#include <JeeLib.h>
 
-float thresholdVoltage = 0.5;
+int thresholdPin = A2;
 int dividerRatio = 10;
 float runningVoltage = 3.3;
 int solarVoltagePin = A3;
@@ -13,10 +13,13 @@ void setup() {
 
 void loop() {
   int sensorValue = analogRead(solarVoltagePin);
+  int thresholdRawValue = analogRead(thresholdPin);
 
   //Serial.println(sensorValue);
 
   float voltage = sensorValue * (runningVoltage / 1023.0) * dividerRatio;
+
+  float thresholdVoltage = (thresholdRawValue / 1023.0) * 5;
 
   //Serial.println(voltage);
   
@@ -25,6 +28,6 @@ void loop() {
   else
     digitalWrite(ledOutputPin, LOW);
     
-    delay(100);
+    //delay(10);
   //Sleepy::loseSomeTime(5000);
 }
