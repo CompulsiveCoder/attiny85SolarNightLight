@@ -1,12 +1,12 @@
-int solarVoltagePin = A3;
-int solarThresholdPin = A2;
-int dividerRatio = 10;
+#define solarVoltageDividerRatio 10
+#define solarVoltagePin A3
+#define solarThresholdPin A2
 
-float runningVoltage = 3.3;
+double runningVoltage = 3.3;
 
 int ledOutputPin = 0;
 
-float batteryLowVoltageThreshold = 3.6; // absolute minimum is 3 but there should be a small safety margin
+float batteryLowVoltageThreshold = 3; // absolute minimum is 3
 
 void setup() {
   pinMode(ledOutputPin, OUTPUT);
@@ -16,7 +16,7 @@ void loop() {
   int solarReading = analogRead(solarVoltagePin);
   int thresholdRawValue = analogRead(solarThresholdPin);
 
-  float solarVoltage = solarReading * (runningVoltage / 1023.0) * dividerRatio;
+  float solarVoltage = solarReading * (runningVoltage / 1023.0) * solarVoltageDividerRatio;
 
   float solarVoltageThreshold = (thresholdRawValue / 1023.0) * 5;
 
